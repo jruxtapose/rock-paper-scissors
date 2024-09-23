@@ -40,24 +40,30 @@
                     alert("Your rocks shatter against each other, there is no winner here."); 
                 }else if (computer == "paper"){ 
                     alert("The computer wraps your rock in paper, blinding it completely. It is your loss... somehow."); 
+                    computerScore = computerScore + 1;
                 }else {
                     alert("You crush the computers scissors with your rock! You win! The computer must go to the nearest office supply store for new ones.");
+                    humanScore = humanScore + 1;
                 }
             }else if (human == "scissors"){
                 if (computer == "rock"){   
                     alert("The computer smashes your scissors to pieces with a rock. You lose. You must go to the nearest office supply store for new ones.");  
+                    computerScore = computerScore + 1;
                 }else if (computer == "paper"){ 
                     alert("You cut the computers paper into confetti. You win! The computer pulls a fresh sheet out of the printer drawer.");
+                    humanScore = humanScore + 1;
                 }else {
                     alert("You both smash your scissors together in a futile effort! There is no winner, this may also go on for a while.")
                 }
             }else {
                 if (computer == "rock"){   
                     alert("You wrap the computers rock in paper, blinding it completely. It is your victory... somehow.");  
+                    humanScore = humanScore + 1;
                 }else if (computer == "paper"){ 
                     alert("You and the computer wave sheets of paper at each other, after a moment you both opt to write a letter instead. There is no winner.");
                 }else {
                     alert("The computers cuts your paper into confetti. You lose! You must retrieve a new sheet from the printer drawer.")
+                    computerScore = computerScore + 1;
                 }
             }
         }
@@ -80,9 +86,18 @@
             for (i = 0; i < 5; i++ ){  //put game back in scope of assignment, rendering my getAnswer function useless. I'm leaving it anyway.
                 game();
             }
+            alert("Computer score: " + computerScore + "; Human score: " + humanScore);
+            if (computerScore > humanScore){
+                alert("The computer wins.");
+            }else if(humanScore > computerScore){
+                alert("You win!");
+            }else{
+                alert("It's a tie. What a letdown.");
+            }
         }
 
-
+        let humanScore = 0;
+        let computerScore = 0;
         play(rockPaperScissors);
         
     </script>
