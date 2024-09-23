@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        function getHumanChoice(){ //get user to choose rock paper or scissors
+            let choosing = true;                                                                    //initialize the conditions for the while loop
+            while (choosing){                                                                       //while loop runs while user selects a valid input
+                let humanChoice = prompt("Would you like to play rock, paper, or scissors?");       //prompt allows user to select their weapon.
+                if (humanChoice.toLowerCase() ==  "rock" || humanChoice.toLowerCase() == "paper" || humanChoice.toLowerCase() == "scissors"){ //use .toLowerCase to ensure no formatting errors, use boolean logic to ensure a valid command has been entered.
+                    return humanChoice.toLowerCase(); //if user has entered a valid command, returns the value
+                    choosing = false;                 //ends the loop
+                }else{                                //if user has entered an invalid command
+                    alert("You must explicitly enter rock, paper, or scissors. No exceptions.")
+                    choosing = true;                  //continues the loop
+                }
+            }
+        }
+
+        function getComputerChoice(){ //have computer choose between rock paper and scissors
+            let computerChoice = Math.random(); //computer chooses a random number between 0 and 1
+            if (computerChoice < 1/3){ //if number is less than ~.33
+                return "rock";         //computer selects rock
+            }else if (computerChoice < 2/3){ //if number is less then ~.66
+                return "paper"; //computer selects paper
+            }else { //otherwise (number is between ~.67 and 1)
+                return "scissors"; //computer select scissors
+            }
+        }
+
+        function rockPaperScissors(){ //we're going with nested if statements to run the game logic, probably not very elegant but hey it works.
+            let human = getHumanChoice();
+            let computer = getComputerChoice();
+            if (human == "rock"){        //first evaluate each case for human playing rock and return the appropriate message  
+                if (computer == "rock"){  
+                    alert("Your rocks shatter against each other, there is no winner here."); 
+                }else if (computer == "paper"){ 
+                    alert("The computer wraps your rock in paper, blinding it completely. It is your loss... somehow."); 
+                }else {
+                    alert("You crush the computers scissors with your rock! You win! The computer must go to the nearest office supply store for new ones.");
+                }
+            }else if (human == "scissors"){
+                if (computer == "rock"){   
+                    alert("The computer smashes your scissors to pieces with a rock. You lose. You must go to the nearest office supply store for new ones.");  
+                }else if (computer == "paper"){ 
+                    alert("You cut the computers paper into confetti. You win! The computer pulls a fresh sheet out of the printer drawer.");
+                }else {
+                    alert("You both smash your scissors together in a futile effort! There is no winner, this may also go on for a while.")
+                }
+            }else {
+                if (computer == "rock"){   
+                    alert("You wrap the computers rock in paper, blinding it completely. It is your victory... somehow.");  
+                }else if (computer == "paper"){ 
+                    alert("You and the computer wave sheets of paper at each other, after a moment you both opt to write a letter instead. There is no winner.");
+                }else {
+                    alert("The computers cuts your paper into confetti. You lose! You must retrieve a new sheet from the printer drawer.")
+                }
+            }
+        }
+
+        function getAnswer(){       //gets the yes or no answer from the player regarding whether they would like to keep playing.
+            let keepGoing = true;
+                while(keepGoing){
+                    let answer = prompt("Would you like to keep playing? yes/no");
+                    if (answer.toLowerCase() == "yes" || answer.toLowerCase() == "no"){
+                        return answer.toLowerCase();
+                        keepGoing = false;
+                    }else {
+                        alert("You must type either yes or no");
+                        keepGoing = true;
+                    }
+                }
+            }
+        //compare chosen objects and declare a winner
+        function play(game){    //created a play function to loop the game until the player decides to quit.
+            let playing = true;
+            while (playing){
+                game();
+                let answer = getAnswer();
+                if (answer == "yes"){
+                    playing = true;
+                }else if (answer == "no"){
+                    playing = false;
+                }
+            }
+        }
+        
+    </script>
+</body>
+</html>
