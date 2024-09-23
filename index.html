@@ -82,20 +82,30 @@
                 }
             }
         //compare chosen objects and declare a winner
-        function play(game){    
-            for (i = 0; i < 5; i++ ){  //put game back in scope of assignment, rendering my getAnswer function useless. I'm leaving it anyway.
-                game();
-            }
-            alert("Computer score: " + computerScore + "; Human score: " + humanScore);
-            if (computerScore > humanScore){
-                alert("The computer wins.");
-            }else if(humanScore > computerScore){
-                alert("You win!");
-            }else{
-                alert("It's a tie. What a letdown.");
+        function play(game){ 
+            playing = true;   
+            while(playing){            
+                for (i = 0; i < 5; i++ ){  //put game back in scope of assignment, but left my replay ability.
+                    game();
+                }
+                alert("Computer score: " + computerScore + "; Human score: " + humanScore);
+                if (computerScore > humanScore){
+                    alert("The computer wins.");
+                }else if(humanScore > computerScore){
+                    alert("You win!");
+                }else{
+                    alert("It's a tie. What a letdown.");
+                }
+                answer = getAnswer();
+                if (answer == "yes"){
+                    humanScore = 0;         //reset the scores
+                    computerScore = 0;
+                    playing = true;
+                }else if (answer == "no"){
+                    playing = false;
+                }
             }
         }
-
         let humanScore = 0;
         let computerScore = 0;
         play(rockPaperScissors);
