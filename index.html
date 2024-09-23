@@ -76,18 +76,12 @@
                 }
             }
         //compare chosen objects and declare a winner
-        function play(game){    //created a play function to loop the game until the player decides to quit.
-            let playing = true;
-            while (playing){
+        function play(game){    
+            for (i = 0; i < 5; i++ ){  //put game back in scope of assignment, rendering my getAnswer function useless. I'm leaving it anyway.
                 game();
-                let answer = getAnswer();
-                if (answer == "yes"){
-                    playing = true;
-                }else if (answer == "no"){
-                    playing = false;
-                }
             }
         }
+
 
         play(rockPaperScissors);
         
