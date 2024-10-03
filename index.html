@@ -7,37 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="buttons">
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+    <div id="game-interface">
+        <div id="buttons">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+        <div id="result">Let's play some rock, paper, scissors!</div>
+        <div id="scoreboard">
+            <div id="computer-score"></div>
+            <div id="player-score"></div>
+        </div>
     </div>
-    <div id="result"></div>
 
     <script>
-
-        /*function getHumanChoice(){
-            const validChoices = ["rock", "paper", "scissors"]; //creates an array of acceptable answers
-
-            while(true){ //initiates a loop until broken by the return
-                let humanChoice = prompt("Would you like to play rock, paper, or scissors?");
-                humanChoice = humanChoice.toLowerCase(); //sets answer to lowercase to ensure case matching
-
-                if(validChoices.includes(humanChoice)){ //checks to ensure that the choice is valid
-                    return humanChoice; //returns the entry and breaks the loop
-                }else{
-                    alert("You must explicitly enter rock, paper, or scissors. No exceptions."); //alerts to an invalid entry without breaking the loop
-                };
-            };
-        };*/
 
         function getComputerChoice(){
             const choices = ["rock", "paper", "scissors"]; //creates an array containing the three possible options for the computer to choose from.
             const randomIndex = Math.floor(Math.random() * choices.length); //chooses a random number related to the index of the chosen option
             return choices[randomIndex]; //returns the randomly chosen option
-        };
+        }
 
-        function rockPaperScissors(){
+        function rockPaperScissors(playerChoice){
             const rules = new Map([                                 //learned about mapping, decided to simplify my game logic to elimate my nested if/then statements.
                 ["rock", {beats: "scissors", losesTo: "paper"}],
                 ["paper", {beats: "rock", losesTo: "scissors"}],
@@ -49,27 +40,38 @@
 
             if (human === computer){ // if the human and computer give the same answer, it's a tie
                 //alert("It's a tie!");
-                results.textContent = "It's a tie!";
+                results.innerHTML = "It's a tie!";
             }else if(rules.get(human).beats === computer){ //checks whether the computer has chosen the option that is beaten by the human player
                 //alert("You win!");
-                results.textContent = "You win!";
+                results.innerHTML = "You win!";
                 humanScore++;
             }else{
                 //alert("Computer wins!");
-                results.textContent = "Computer wins!";
+                results.innerHTML = "Computer wins!";
                 computerScore++;
-            }
+            };
         }
+
+        function updateScore(){
+            humanScoreBoard.innerHTML = `<h2>Human Score</h4><h4>${humanScore}</h4>`;
+            computerScoreBoard.innerHTML = `<h2>Computer Score</h2><h4>${computerScore}</h4>`
+        }
+
         let computerScore = 0;
         let humanScore = 0;
         let playRound = document.querySelector("#buttons");
-        let results = document.querySelector("#result")
+        let results = document.querySelector("#result");
+        let humanScoreBoard = document.querySelector("#player-score");
+        let computerScoreBoard = document.querySelector("#computer-score");
+        updateScore();
 
         playRound.addEventListener("click", function(e){
-            playerChoice = e.target.id;
-            rockPaperScissors();
+            if (e.target.tagName === "BUTTON"){ // eliminates log error when user accidentally clicks in between the buttons but inside the div.
+                rockPaperScissors(e.target.id);
+                updateScore();
+            }
             
-        })
+        });
 
      
     </script>

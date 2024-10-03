@@ -1,4 +1,21 @@
-#buttons,
-#result {
+#game-interface{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+#scoreboard{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 10px solid black;
+    width: 600px;
+    height: 200px; 
+}
+
+#player-score,
+#computer-score{
     text-align: center;
 }
