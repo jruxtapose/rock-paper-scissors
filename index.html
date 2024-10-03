@@ -40,15 +40,15 @@
             
             let human = playerChoice;
             let computer = getComputerChoice(); // Get the computer's choice
-
+            results.innerHTML = `Computer chose ${computer}, you chose ${human}.<br>`;
             // Determine the winner based on the rules
             if (human === computer){ // Tie
-                results.innerHTML = "It's a tie!";
+                results.innerHTML += "It's a tie!";
             }else if(rules.get(human).beats === computer){ // Human wins
-                results.innerHTML = "You win!";
+                results.innerHTML += "You win!";
                 humanScore++;
             }else{
-                results.innerHTML = "Computer wins!"; // Computer wins
+                results.innerHTML += "Computer wins!"; // Computer wins
                 computerScore++;
             };
         }
