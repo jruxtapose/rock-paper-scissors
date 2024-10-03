@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
+    <div id="buttons">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <div id="result"></div>
 
     <script>
 
-        function getHumanChoice(){
+        /*function getHumanChoice(){
             const validChoices = ["rock", "paper", "scissors"]; //creates an array of acceptable answers
 
             while(true){ //initiates a loop until broken by the return
@@ -26,39 +29,49 @@
                     alert("You must explicitly enter rock, paper, or scissors. No exceptions."); //alerts to an invalid entry without breaking the loop
                 };
             };
-        };
+        };*/
 
         function getComputerChoice(){
             const choices = ["rock", "paper", "scissors"]; //creates an array containing the three possible options for the computer to choose from.
             const randomIndex = Math.floor(Math.random() * choices.length); //chooses a random number related to the index of the chosen option
-            console.log(choices[randomIndex]);
             return choices[randomIndex]; //returns the randomly chosen option
         };
 
         function rockPaperScissors(){
             const rules = new Map([                                 //learned about mapping, decided to simplify my game logic to elimate my nested if/then statements.
                 ["rock", {beats: "scissors", losesTo: "paper"}],
-                ["paper", {beats: "rocks", losesTo: "scissors"}],
+                ["paper", {beats: "rock", losesTo: "scissors"}],
                 ["scissors", {beats: "paper", losesTo: "rock"}],
             ]);
             
-            let human = getHumanChoice();
+            let human = playerChoice;
             let computer = getComputerChoice();
 
-            if (human === computer){
-                alert("It's a tie!");
-            }else if(rules.get(human).beats === computer){
-                alert("You win!");
+            if (human === computer){ // if the human and computer give the same answer, it's a tie
+                //alert("It's a tie!");
+                results.textContent = "It's a tie!";
+            }else if(rules.get(human).beats === computer){ //checks whether the computer has chosen the option that is beaten by the human player
+                //alert("You win!");
+                results.textContent = "You win!";
                 humanScore++;
             }else{
-                alert("Computer wins!");
+                //alert("Computer wins!");
+                results.textContent = "Computer wins!";
                 computerScore++;
             }
         }
+        let computerScore = 0;
+        let humanScore = 0;
+        let playRound = document.querySelector("#buttons");
+        let results = document.querySelector("#result")
 
-        function playRound(){
+        playRound.addEventListener("click", function(e){
+            playerChoice = e.target.id;
+            rockPaperScissors();
             
-        }        
+        })
+
+     
     </script>
 </body>
 </html>
