@@ -22,56 +22,92 @@
 
     <script>
 
+        //Function to get a random choice for the computer
         function getComputerChoice(){
-            const choices = ["rock", "paper", "scissors"]; //creates an array containing the three possible options for the computer to choose from.
-            const randomIndex = Math.floor(Math.random() * choices.length); //chooses a random number related to the index of the chosen option
-            return choices[randomIndex]; //returns the randomly chosen option
+            const choices = ["rock", "paper", "scissors"];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
         }
 
+        //Function to play a single round of Rock Paper Scissors
         function rockPaperScissors(playerChoice){
-            const rules = new Map([                                 //learned about mapping, decided to simplify my game logic to elimate my nested if/then statements.
+            const rules = new Map([                                 
+                //Define the rules of the game using a map
                 ["rock", {beats: "scissors", losesTo: "paper"}],
                 ["paper", {beats: "rock", losesTo: "scissors"}],
                 ["scissors", {beats: "paper", losesTo: "rock"}],
             ]);
             
             let human = playerChoice;
-            let computer = getComputerChoice();
+            let computer = getComputerChoice(); // Get the computer's choice
 
-            if (human === computer){ // if the human and computer give the same answer, it's a tie
-                //alert("It's a tie!");
+            // Determine the winner based on the rules
+            if (human === computer){ // Tie
                 results.innerHTML = "It's a tie!";
-            }else if(rules.get(human).beats === computer){ //checks whether the computer has chosen the option that is beaten by the human player
-                //alert("You win!");
+            }else if(rules.get(human).beats === computer){ // Human wins
                 results.innerHTML = "You win!";
                 humanScore++;
             }else{
-                //alert("Computer wins!");
-                results.innerHTML = "Computer wins!";
+                results.innerHTML = "Computer wins!"; // Computer wins
                 computerScore++;
             };
         }
 
+        // Function to update the scores displayed on the scoreboard
         function updateScore(){
             humanScoreBoard.innerHTML = `<h2>Human Score</h4><h4>${humanScore}</h4>`;
             computerScoreBoard.innerHTML = `<h2>Computer Score</h2><h4>${computerScore}</h4>`
+
+            // Check if either player has reached a winning score (5)
+            if (humanScore >= 5){
+                //Display the winner and reset button, disabled game buttons.
+                results.innerHTML = "Game over! You win!<br><button onclick='resetGame()'>reset</button>"
+                rockButton.disabled = true;
+                paperButton.disabled = true;
+                scissorsButton.disabled = true;
+            }else if (computerScore >=5){
+                //Display the winner and reset button, disabled game buttons.
+                results.innerHTML = "Game over! Computer wins!<br><button onclick='resetGame()'>reset</button>"
+                rockButton.disabled = true;
+                paperButton.disabled = true;
+                scissorsButton.disabled = true;
+            }
         }
 
+        // Initialize scores and get references to HTML elements
         let computerScore = 0;
         let humanScore = 0;
         let playRound = document.querySelector("#buttons");
         let results = document.querySelector("#result");
         let humanScoreBoard = document.querySelector("#player-score");
         let computerScoreBoard = document.querySelector("#computer-score");
+        let rockButton = document.querySelector("#rock");
+        let paperButton = document.querySelector("#paper");
+        let scissorsButton = document.querySelector("#scissors");
+
+        //Initial scoreboard update
         updateScore();
 
+        // Event listener for clicks on the buttons container
         playRound.addEventListener("click", function(e){
-            if (e.target.tagName === "BUTTON"){ // eliminates log error when user accidentally clicks in between the buttons but inside the div.
-                rockPaperScissors(e.target.id);
-                updateScore();
+    
+            if (e.target.tagName === "BUTTON"){ // Ensure a button was clicked
+                rockPaperScissors(e.target.id); // Play a round
+                updateScore(); // Update the scoreboard
             }
-            
+
         });
+
+        // Function to reset the game
+        function resetGame(){
+            computerScore = 0; // Reset scores
+            humanScore = 0;
+            rockButton.disabled = false; //Enable buttons
+            paperButton.disabled = false;
+            scissorsButton.disabled = false;
+            results.innerHTML = "Let's play some rock, paper, scissors!" // Reset result message
+            updateScore(); // Update the scoreboard
+        }
 
      
     </script>
