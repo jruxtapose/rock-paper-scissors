@@ -8,15 +8,17 @@
 </head>
 <body>
     <div id="game-interface">
+        <div id="scoreboard">
+            <div id="result">Let's play some rock, paper, scissors!</div>
+            <div id="scores">
+                <div id="computer-score"></div>
+                <div id="player-score"></div>
+            </div>
+        </div>
         <div id="buttons">
             <button id="rock">Rock</button>
             <button id="paper">Paper</button>
             <button id="scissors">Scissors</button>
-        </div>
-        <div id="result">Let's play some rock, paper, scissors!</div>
-        <div id="scoreboard">
-            <div id="computer-score"></div>
-            <div id="player-score"></div>
         </div>
     </div>
 
@@ -26,6 +28,7 @@
         function getComputerChoice(){
             const choices = ["rock", "paper", "scissors"];
             const randomIndex = Math.floor(Math.random() * choices.length);
+            console.log(randomIndex);
             return choices[randomIndex];
         }
 
