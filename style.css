@@ -19,6 +19,8 @@ body{
     align-items: center;
     gap: 2em;
     width: 80%;
+    min-width: 800px;
+    min-height: 400px;
 }
 
 #scoreboard{
@@ -29,9 +31,11 @@ body{
     align-items: center;
     border: 5px solid green;
     width: 80vw;
-    height: 200px;
+
     border-radius: 15px;
     height: 30vh;
+    min-height: 20em;
+    overflow: hidden;
 }
 
 #result{
